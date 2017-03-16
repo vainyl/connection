@@ -20,7 +20,7 @@ use Vainyl\Core\Id\Storage\AbstractIdentifiableStorage;
  *
  * @author Taras P. Girnyk <taras.p.gyrnik@gmail.com>
  */
-class ConnectionStorage extends AbstractIdentifiableStorage
+class ConnectionStorage extends AbstractIdentifiableStorage implements ConnectionStorageInterface
 {
     private $connections = [];
 
