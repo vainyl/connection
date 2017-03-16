@@ -1,0 +1,23 @@
+{
+    "name": "vainyl/connection",
+    "type": "shared-package",
+    "authors": [
+        {
+            "name": "Taras Girnyk",
+            "email": "taras.p.gyrnik@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Vainyl\\Core\\": "src/"
+        }
+    },
+    "require": {
+        "vainyl/core": "dev-master"
+    },
+    "config": {
+        "secure-http": false
+    },
+    "prefer-stable": true,
+    "minimum-stability": "dev"
+}
