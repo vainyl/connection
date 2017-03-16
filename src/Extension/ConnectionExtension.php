@@ -29,6 +29,9 @@ class ConnectionExtension extends AbstractExtension
      */
     public function load(array $configs, ContainerBuilder $container): AbstractExtension
     {
+        $this
+            ->processConfiguration(new ConnectionConfiguration(), $configs);
+
         $container
             ->addCompilerPass(new ConnectionCompilerPass());
 
