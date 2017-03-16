@@ -1,0 +1,10 @@
+services:
+  connection.factory:
+    class: Vainyl\Connection\Factory\ConnectionFactory
+  connection.factory.logger:
+    decorates: connection.factory
+    class: Vainyl\Connection\Decorator\LoggerConnectionDecorator
+    arguments: ['@connection.factory.inner', '@logger']
+  connection.storage:
+    class: Vainyl\Connection\Storage\ConnectionStorage
+    arguments: ['@connection.factory']

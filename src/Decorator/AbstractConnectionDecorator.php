@@ -9,7 +9,6 @@
  * @link      https://vainyl.com
  */
 declare(strict_types = 1);
-
 namespace Vainyl\Connection\Decorator;
 
 use Vainyl\Connection\ConnectionInterface;
@@ -44,7 +43,7 @@ abstract class AbstractConnectionDecorator implements ConnectionInterface
     /**
      * @inheritDoc
      */
-    public function getName() : string
+    public function getName(): string
     {
         return $this->connection->getName();
     }

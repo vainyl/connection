@@ -9,7 +9,6 @@
  * @link      https://vainyl.com
  */
 declare(strict_types = 1);
-
 namespace Vainyl\Connection\Decorator;
 
 use Psr\Log\LoggerInterface;
