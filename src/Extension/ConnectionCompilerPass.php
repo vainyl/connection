@@ -15,7 +15,7 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\Reference;
 use Vainyl\Core\Extension\AbstractCompilerPass;
-use Vainyl\Core\Extension\Exception\MissingTagFieldException;
+use Vainyl\Core\Extension\Exception\MissingRequiredFieldException;
 
 /**
  * Class ConnectionCompilerPass
@@ -38,7 +38,7 @@ class ConnectionCompilerPass extends AbstractCompilerPass
         foreach ($services as $id => $tags) {
             foreach ($tags as $tag) {
                 if (false === array_key_exists('alias', $tag)) {
-                    throw new MissingTagFieldException($this, $id, $tag, 'alias');
+                    throw new MissingRequiredFieldException($container, $id, $tag, 'alias');
                 }
                 $alias = $tag['alias'];
                 $definition = $container->getDefinition($id);
