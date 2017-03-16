@@ -11,6 +11,7 @@
 declare(strict_types = 1);
 namespace Vainyl\Connection\Extension;
 
+use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Vainyl\Core\Extension\AbstractExtension;
 
 /**
@@ -20,4 +21,17 @@ use Vainyl\Core\Extension\AbstractExtension;
  */
 class ConnectionExtension extends AbstractExtension
 {
+    /**
+     * @param array            $configs
+     * @param ContainerBuilder $container
+     *
+     * @return AbstractExtension
+     */
+    public function load(array $configs, ContainerBuilder $container): AbstractExtension
+    {
+        $container
+            ->addCompilerPass(new ConnectionCompilerPass());
+
+        return parent::load($configs, $container);
+    }
 }
