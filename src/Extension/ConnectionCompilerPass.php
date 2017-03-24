@@ -16,6 +16,7 @@ use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\Reference;
 use Vainyl\Core\Extension\AbstractCompilerPass;
 use Vainyl\Core\Extension\Exception\MissingRequiredFieldException;
+use Vainyl\Core\Extension\Exception\MissingRequiredServiceException;
 
 /**
  * Class ConnectionCompilerPass
@@ -31,7 +32,7 @@ class ConnectionCompilerPass extends AbstractCompilerPass
     public function process(ContainerBuilder $container)
     {
         if (false === ($container->hasDefinition('connection.storage'))) {
-            return $this;
+            throw new MissingRequiredServiceException($container, 'connection.storage');
         }
 
         $services = $container->findTaggedServiceIds('connection');
@@ -47,7 +48,7 @@ class ConnectionCompilerPass extends AbstractCompilerPass
 
                 $containerDefinition = $container->getDefinition('connection.storage');
                 $containerDefinition
-                    ->addMethodCall('addInstance', [$alias, new Reference($inner)]);
+                    ->addMethodCall('offsetSet', [$alias, new Reference($inner)]);
 
                 $decoratedDefinition = (new Definition())
                     ->setFactory(['connection.storage', 'getConnection'])

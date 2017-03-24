@@ -13,27 +13,36 @@ namespace Vainyl\Connection\Storage;
 
 use Vainyl\Connection\ConnectionInterface;
 use Vainyl\Connection\Factory\ConnectionFactoryInterface;
-use Vainyl\Core\Id\Storage\AbstractIdentifiableStorage;
+use Vainyl\Core\Storage\Proxy\AbstractStorageProxy;
+use Vainyl\Core\Storage\StorageInterface;
 
 /**
  * Class ConnectionStorage
  *
  * @author Taras P. Girnyk <taras.p.gyrnik@gmail.com>
  */
-class ConnectionStorage extends AbstractIdentifiableStorage implements ConnectionStorageInterface
+class ConnectionStorage extends AbstractStorageProxy
 {
-    private $connections = [];
-
     private $connectionFactory;
 
     /**
      * ConnectionStorage constructor.
      *
+     * @param StorageInterface           $storage
      * @param ConnectionFactoryInterface $connectionFactory
      */
-    public function __construct(ConnectionFactoryInterface $connectionFactory)
+    public function __construct(StorageInterface $storage, ConnectionFactoryInterface $connectionFactory)
     {
         $this->connectionFactory = $connectionFactory;
+        parent::__construct($storage);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function offsetGet($offset)
+    {
+        return $this->connectionFactory->decorate(parent::offsetGet($offset));
     }
 
     /**
@@ -43,10 +52,6 @@ class ConnectionStorage extends AbstractIdentifiableStorage implements Connectio
      */
     public function getConnection(string $alias): ConnectionInterface
     {
-        if (false === array_key_exists($alias, $this->connections)) {
-            $this->connections[$alias] = $this->connectionFactory->decorate($this->offsetGet($alias));
-        }
-
-        return $this->connections[$alias];
+        return $this->offsetGet($alias);
     }
 }
