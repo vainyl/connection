@@ -8,13 +8,14 @@
  * @license   https://opensource.org/licenses/MIT MIT License
  * @link      https://vainyl.com
  */
-declare(strict_types = 1);
+declare(strict_types=1);
+
 namespace Vainyl\Connection\Storage;
 
+use Ds\Map;
 use Vainyl\Connection\ConnectionInterface;
 use Vainyl\Connection\Factory\ConnectionFactoryInterface;
 use Vainyl\Core\Storage\Proxy\AbstractStorageProxy;
-use Vainyl\Core\Storage\StorageInterface;
 
 /**
  * Class ConnectionStorage
@@ -28,10 +29,10 @@ class ConnectionStorage extends AbstractStorageProxy
     /**
      * ConnectionStorage constructor.
      *
-     * @param StorageInterface           $storage
+     * @param Map                        $storage
      * @param ConnectionFactoryInterface $connectionFactory
      */
-    public function __construct(StorageInterface $storage, ConnectionFactoryInterface $connectionFactory)
+    public function __construct(Map $storage, ConnectionFactoryInterface $connectionFactory)
     {
         $this->connectionFactory = $connectionFactory;
         parent::__construct($storage);
