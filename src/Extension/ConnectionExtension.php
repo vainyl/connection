@@ -48,6 +48,7 @@ class ConnectionExtension extends AbstractExtension
                 $container->setDefinition('connection.' . $name, $definition);
             }
         }
+        $container->addCompilerPass(new ConnectionCompilerPass());
 
         return parent::load($configs, $container);
     }

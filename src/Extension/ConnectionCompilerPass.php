@@ -8,7 +8,8 @@
  * @license   https://opensource.org/licenses/MIT MIT License
  * @link      https://vainyl.com
  */
-declare(strict_types = 1);
+declare(strict_types=1);
+
 namespace Vainyl\Connection\Extension;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -25,7 +26,6 @@ use Vainyl\Core\Extension\Exception\MissingRequiredServiceException;
  */
 class ConnectionCompilerPass extends AbstractCompilerPass
 {
-
     /**
      * @inheritDoc
      */
@@ -38,6 +38,9 @@ class ConnectionCompilerPass extends AbstractCompilerPass
         $services = $container->findTaggedServiceIds('connection');
         foreach ($services as $id => $tags) {
             foreach ($tags as $tag) {
+                if ('connection' !== $tag['name']) {
+                    continue;
+                }
                 if (false === array_key_exists('alias', $tag)) {
                     throw new MissingRequiredFieldException($container, $id, $tag, 'alias');
                 }
