@@ -9,22 +9,21 @@
  * @link      https://vainyl.com
  */
 declare(strict_types = 1);
-namespace Vainyl\Connection\Factory;
+
+namespace Vainyl\Connection\Exception;
 
 use Vainyl\Connection\ConnectionInterface;
-use Vainyl\Core\Id\IdentifiableInterface;
+use Vainyl\Core\ArrayX\ArrayInterface;
 
 /**
- * Interface ConnectionFactoryInterface
+ * Interface ConnectionExceptionInterface
  *
  * @author Taras P. Girnyk <taras.p.gyrnik@gmail.com>
  */
-interface ConnectionFactoryInterface extends IdentifiableInterface
+interface ConnectionExceptionInterface extends ArrayInterface, \Throwable
 {
     /**
-     * @param ConnectionInterface $connection
-     *
      * @return ConnectionInterface
      */
-    public function decorate(ConnectionInterface $connection) : ConnectionInterface;
+    public function getConnection() : ConnectionInterface;
 }

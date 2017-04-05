@@ -1,10 +1,10 @@
 <?php
 /**
- * Vain Framework
+ * Vainyl
  *
  * PHP Version 7
  *
- * @package   core
+ * @package   Connection
  * @license   https://opensource.org/licenses/MIT MIT License
  * @link      https://vainyl.com
  */
