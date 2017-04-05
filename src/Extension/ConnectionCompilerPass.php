@@ -51,7 +51,7 @@ class ConnectionCompilerPass extends AbstractCompilerPass
 
                 $containerDefinition = $container->getDefinition('connection.storage');
                 $containerDefinition
-                    ->addMethodCall('offsetSet', [$alias, new Reference($inner)]);
+                    ->addMethodCall('addConnection', [$alias, new Reference($inner)]);
 
                 $decoratedDefinition = (new Definition())
                     ->setFactory(['connection.storage', 'getConnection'])

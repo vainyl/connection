@@ -47,6 +47,19 @@ class ConnectionStorage extends AbstractStorageProxy
     }
 
     /**
+     * @param string              $alias
+     * @param ConnectionInterface $connection
+     *
+     * @return ConnectionStorage
+     */
+    public function addConnection(string $alias, ConnectionInterface $connection)
+    {
+        $this->offsetSet($alias, $connection);
+
+        return $this;
+    }
+
+    /**
      * @param string $alias
      *
      * @return ConnectionInterface
