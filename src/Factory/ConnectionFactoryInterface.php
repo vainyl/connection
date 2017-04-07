@@ -12,7 +12,7 @@ declare(strict_types = 1);
 namespace Vainyl\Connection\Factory;
 
 use Vainyl\Connection\ConnectionInterface;
-use Vainyl\Core\Id\IdentifiableInterface;
+use Vainyl\Core\IdentifiableInterface;
 
 /**
  * Interface ConnectionFactoryInterface
