@@ -8,7 +8,7 @@
  * @license   https://opensource.org/licenses/MIT MIT License
  * @link      https://vainyl.com
  */
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Vainyl\Connection\Exception;
 
@@ -25,5 +25,5 @@ interface ConnectionExceptionInterface extends ArrayInterface, \Throwable
     /**
      * @return ConnectionInterface
      */
-    public function getConnection() : ConnectionInterface;
+    public function getConnection(): ConnectionInterface;
 }

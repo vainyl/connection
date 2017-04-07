@@ -8,7 +8,8 @@
  * @license   https://opensource.org/licenses/MIT MIT License
  * @link      https://vainyl.com
  */
-declare(strict_types = 1);
+declare(strict_types=1);
+
 namespace Vainyl\Connection\Factory;
 
 use Vainyl\Connection\ConnectionInterface;
@@ -26,5 +27,5 @@ interface ConnectionFactoryInterface extends IdentifiableInterface
      *
      * @return ConnectionInterface
      */
-    public function decorate(ConnectionInterface $connection) : ConnectionInterface;
+    public function decorate(ConnectionInterface $connection): ConnectionInterface;
 }
