@@ -15,7 +15,7 @@ namespace Vainyl\Connection\Extension;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
 use Vainyl\Core\Extension\AbstractExtension;
-use Vainyl\Core\Extension\Exception\MissingRequiredFieldException;
+use Vainyl\Core\Exception\MissingRequiredFieldException;
 
 /**
  * Class ConnectionExtension
