@@ -14,8 +14,9 @@ namespace Vainyl\Connection\Extension;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
-use Vainyl\Core\Extension\AbstractExtension;
+use Vainyl\Core\Application\EnvironmentInterface;
 use Vainyl\Core\Exception\MissingRequiredFieldException;
+use Vainyl\Core\Extension\AbstractExtension;
 
 /**
  * Class ConnectionExtension
@@ -27,8 +28,11 @@ class ConnectionExtension extends AbstractExtension
     /**
      * @inheritDoc
      */
-    public function load(array $configs, ContainerBuilder $container): AbstractExtension
-    {
+    public function load(
+        array $configs,
+        ContainerBuilder $container,
+        EnvironmentInterface $environment = null
+    ): AbstractExtension {
         $container
             ->addCompilerPass(new ConnectionCompilerPass());
 
@@ -51,6 +55,6 @@ class ConnectionExtension extends AbstractExtension
         }
         $container->addCompilerPass(new ConnectionCompilerPass());
 
-        return parent::load($configs, $container);
+        return parent::load($configs, $container, $environment);
     }
 }
