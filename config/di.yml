@@ -6,6 +6,5 @@ services:
     class: Vainyl\Connection\Decorator\LoggerConnectionDecorator
     arguments: ['@connection.factory.logger.inner', '@logger']
   connection.storage:
-    parent: storage.proxy
     class: Vainyl\Connection\Storage\ConnectionStorage
-    arguments: ['@connection.factory']
+    arguments: ['storage.prototype', '@connection.factory']
