@@ -39,14 +39,6 @@ class ConnectionStorage extends AbstractStorageDecorator
     }
 
     /**
-     * @inheritDoc
-     */
-    public function offsetGet($offset)
-    {
-        return $this->connectionFactory->decorate(parent::offsetGet($offset));
-    }
-
-    /**
      * @param string $alias
      * @param ConnectionInterface $connection
      *
@@ -54,7 +46,7 @@ class ConnectionStorage extends AbstractStorageDecorator
      */
     public function addConnection(string $alias, ConnectionInterface $connection)
     {
-        $this->offsetSet($alias, $connection);
+        $this->offsetSet($alias, $this->connectionFactory->decorate($connection));
 
         return $this;
     }
