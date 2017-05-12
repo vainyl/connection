@@ -1,4 +1,8 @@
 services:
+  logger.connection:
+    synthetic: true
+    tags:
+      - {name: 'logger', channel: 'connection'}
   connection.factory:
     class: Vainyl\Connection\Factory\ConnectionFactory
   connection.factory.logger:
