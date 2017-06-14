@@ -14,8 +14,10 @@ namespace Vainyl\Connection\Extension;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
+use Symfony\Component\DependencyInjection\Reference;
 use Vainyl\Connection\ConnectionInterface;
 use Vainyl\Core\Application\EnvironmentInterface;
+use Vainyl\Core\Exception\MissingRequiredServiceException;
 use Vainyl\Core\Extension\AbstractExtension;
 
 /**
@@ -37,9 +39,13 @@ class ConnectionExtension extends AbstractExtension
         $connections = $this->processConfiguration($configuration, $configs);
 
         foreach ($connections as $name => $config) {
+            $factoryId = 'connection.factory.' . $config['driver'];
+            if (false === $container->hasDefinition($factoryId)) {
+                throw new MissingRequiredServiceException($container, $factoryId);
+            }
             $definition = (new Definition())
                 ->setClass(ConnectionInterface::class)
-                ->setFactory(['connection.factory.' . $config['driver'], 'createConnection'])
+                ->setFactory([new Reference($factoryId), 'createConnection'])
                 ->setArguments(
                     [
                         $name,
