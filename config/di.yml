@@ -1,5 +1,5 @@
 services:
-  config.database:
+  config.connection:
     synthetic: true
   logger.connection:
     synthetic: true
