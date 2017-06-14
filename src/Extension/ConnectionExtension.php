@@ -16,8 +16,6 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\Reference;
 use Vainyl\Connection\ConnectionInterface;
-use Vainyl\Core\Application\EnvironmentInterface;
-use Vainyl\Core\Exception\MissingRequiredServiceException;
 use Vainyl\Core\Extension\AbstractExtension;
 
 /**
@@ -30,11 +28,16 @@ class ConnectionExtension extends AbstractExtension
     /**
      * @inheritDoc
      */
-    public function load(
-        array $configs,
-        ContainerBuilder $container,
-        EnvironmentInterface $environment = null
-    ): AbstractExtension {
+    public function getCompilerPasses(): array
+    {
+        return [new ConnectionCompilerPass()];
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function load(array $configs, ContainerBuilder $container): AbstractExtension
+    {
         $configuration = new ConnectionConfiguration();
         $connections = $this->processConfiguration($configuration, $configs);
 
@@ -56,8 +59,7 @@ class ConnectionExtension extends AbstractExtension
                 ->addTag('connection', ['name' => $name]);
             $container->setDefinition('connection.' . $name, $definition);
         }
-        $container->addCompilerPass(new ConnectionCompilerPass());
 
-        return parent::load($configs, $container, $environment);
+        return parent::load($configs, $container);
     }
 }
