@@ -7,8 +7,8 @@ services:
     class: Vainyl\Connection\Factory\ConnectionFactory
   connection.factory.logger:
     decorates: connection.factory
-    class: Vainyl\Connection\Decorator\LoggerConnectionDecorator
+    class: Vainyl\Connection\Factory\Decorator\LoggerConnectionFactoryDecorator
     arguments: ['@connection.factory.logger.inner', '@logger.connection']
   connection.storage:
     class: Vainyl\Connection\Storage\ConnectionStorage
-    arguments: ['storage.prototype', '@connection.factory']
+    arguments: ['@storage.prototype', '@connection.factory']
