@@ -33,8 +33,11 @@ class ConnectionConfiguration implements ConfigurationInterface
         $rootNode
             ->prototype('array')
                 ->children()
-                    ->scalarNode('name')->end()
-                    ->scalarNode('connection')->end()
+                    ->scalarNode('driver')->end()
+                    ->scalarNode('host')->end()
+                    ->scalarNode('port')->end()
+                    ->scalarNode('username')->end()
+                    ->scalarNode('password')->end()
                     ->arrayNode('options')->end()
                 ->end()
             ->end()
