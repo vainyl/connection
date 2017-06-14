@@ -24,9 +24,20 @@ interface ConnectionFactoryInterface extends IdentifiableInterface
 {
     /**
      * @param string $name
-     * @param array  $configData
+     * @param string $host
+     * @param int    $port
+     * @param string $userName
+     * @param string $password
+     * @param array  $options
      *
      * @return ConnectionInterface
      */
-    public function createConnection(string $name, array $configData): ConnectionInterface;
+    public function createConnection(
+        string $name,
+        string $host,
+        int $port,
+        string $userName,
+        string $password,
+        array $options
+    ): ConnectionInterface;
 }
