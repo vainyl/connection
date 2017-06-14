@@ -31,6 +31,7 @@ class ConnectionConfiguration implements ConfigurationInterface
         $rootNode = $treeBuilder->root('connections');
 
         $rootNode
+            ->useAttributeAsKey('name')
             ->prototype('array')
                 ->children()
                     ->scalarNode('driver')->end()
