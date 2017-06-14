@@ -39,7 +39,7 @@ class ConnectionExtension extends AbstractExtension
             $definition = (new Definition())
                 ->setFactory(['connection.factory.' . $config['driver'], 'createConnection'])
                 ->setArguments([$name, $config])
-                ->addTag('connection');
+                ->addTag('connection', ['name' => $name]);
             $container->setDefinition('connection.' . $name, $definition);
         }
         $container->addCompilerPass(new ConnectionCompilerPass());

@@ -5,12 +5,12 @@ services:
     synthetic: true
     tags:
       - {name: 'logger', channel: 'connection'}
-  connection.factory:
-    class: Vainyl\Connection\Factory\ConnectionFactory
-  connection.factory.logger:
-    decorates: connection.factory
-    class: Vainyl\Connection\Factory\Decorator\LoggerConnectionFactoryDecorator
-    arguments: ['@connection.factory.logger.inner', '@logger.connection']
+  connection.decorator:
+    class: Vainyl\Connection\Factory\ConnectionDecorator
+  connection.decorator.logger:
+    decorates: connection.decorator
+    class: Vainyl\Connection\Factory\Decorator\LoggerConnectionDecoratorDecorator
+    arguments: ['@connection.decorator.logger.inner', '@logger.connection']
   connection.storage:
     class: Vainyl\Connection\Storage\ConnectionStorage
     arguments: ['@storage.prototype', '@connection.factory']

@@ -38,10 +38,10 @@ class ConnectionCompilerPass extends AbstractCompilerPass
         $services = $container->findTaggedServiceIds('connection');
         foreach ($services as $id => $tags) {
             foreach ($tags as $attributes) {
-                if (false === array_key_exists('alias', $attributes)) {
-                    throw new MissingRequiredFieldException($container, $id, $attributes, 'alias');
+                if (false === array_key_exists('name', $attributes)) {
+                    throw new MissingRequiredFieldException($container, $id, $attributes, 'name');
                 }
-                $alias = $attributes['alias'];
+                $alias = $attributes['name'];
                 $definition = $container->getDefinition($id);
                 $inner = $id . '.inner';
                 $container->setDefinition($inner, $definition);

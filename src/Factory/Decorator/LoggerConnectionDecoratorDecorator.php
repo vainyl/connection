@@ -15,27 +15,27 @@ namespace Vainyl\Connection\Factory\Decorator;
 use Psr\Log\LoggerInterface;
 use Vainyl\Connection\ConnectionInterface;
 use Vainyl\Connection\Decorator\LoggerConnectionDecorator;
-use Vainyl\Connection\Factory\ConnectionFactoryInterface;
+use Vainyl\Connection\Factory\ConnectionDecoratorInterface;
 
 /**
- * Class LoggerConnectionFactoryDecorator
+ * Class LoggerConnectionDecoratorDecorator
  *
  * @author Taras P. Girnyk <taras.p.gyrnik@gmail.com>
  */
-class LoggerConnectionFactoryDecorator extends AbstractConnectionFactoryDecorator
+class LoggerConnectionDecoratorDecorator extends AbstractConnectionDecoratorDecorator
 {
     private $logger;
 
     /**
-     * LoggerConnectionFactoryDecorator constructor.
+     * LoggerConnectionDecoratorDecorator constructor.
      *
-     * @param ConnectionFactoryInterface $connectionFactory
-     * @param LoggerInterface            $logger
+     * @param ConnectionDecoratorInterface $connectionDecorator
+     * @param LoggerInterface              $logger
      */
-    public function __construct(ConnectionFactoryInterface $connectionFactory, LoggerInterface $logger)
+    public function __construct(ConnectionDecoratorInterface $connectionDecorator, LoggerInterface $logger)
     {
         $this->logger = $logger;
-        parent::__construct($connectionFactory);
+        parent::__construct($connectionDecorator);
     }
 
     /**
