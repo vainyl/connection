@@ -15,6 +15,7 @@ namespace Vainyl\Connection\Extension;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\Reference;
+use Vainyl\Connection\ConnectionInterface;
 use Vainyl\Core\Extension\AbstractCompilerPass;
 use Vainyl\Core\Exception\MissingRequiredFieldException;
 use Vainyl\Core\Exception\MissingRequiredServiceException;
@@ -41,18 +42,19 @@ class ConnectionCompilerPass extends AbstractCompilerPass
                 if (false === array_key_exists('name', $attributes)) {
                     throw new MissingRequiredFieldException($container, $id, $attributes, 'name');
                 }
-                $alias = $attributes['name'];
+                $name = $attributes['name'];
                 $definition = $container->getDefinition($id);
                 $inner = $id . '.inner';
                 $container->setDefinition($inner, $definition);
 
                 $containerDefinition = $container->getDefinition('connection.storage');
                 $containerDefinition
-                    ->addMethodCall('addConnection', [$alias, new Reference($inner)]);
+                    ->addMethodCall('addConnection', [$name, new Reference($inner)]);
 
                 $decoratedDefinition = (new Definition())
-                    ->setFactory(['connection.storage', 'getConnection'])
-                    ->setArguments($alias);
+                    ->setClass(ConnectionInterface::class)
+                    ->setFactory([new Reference('connection.storage'), 'getConnection'])
+                    ->setArguments([$name]);
 
                 $container->setDefinition($id, $decoratedDefinition);
             }
