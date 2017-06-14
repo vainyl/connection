@@ -35,12 +35,12 @@ class ConnectionExtension extends AbstractExtension
         $configuration = new ConnectionConfiguration();
         $connections = $this->processConfiguration($configuration, $configs);
 
-        foreach ($connections as $connection) {
+        foreach ($connections as $name => $config) {
             $definition = (new Definition())
-                ->setFactory(['connection.factory.' . $connection['driver'], 'createConnection'])
-                ->setArguments([$connection['name'], $connection])
+                ->setFactory(['connection.factory.' . $config['driver'], 'createConnection'])
+                ->setArguments([$name, $config])
                 ->addTag('connection');
-            $container->setDefinition('connection.' . $connection['name'], $definition);
+            $container->setDefinition('connection.' . $name, $definition);
         }
         $container->addCompilerPass(new ConnectionCompilerPass());
 
