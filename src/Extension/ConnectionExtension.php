@@ -40,9 +40,6 @@ class ConnectionExtension extends AbstractExtension
 
         foreach ($connections as $name => $config) {
             $factoryId = 'connection.factory.' . $config['driver'];
-            if (false === $container->hasDefinition($factoryId)) {
-                throw new MissingRequiredServiceException($container, $factoryId);
-            }
             $definition = (new Definition())
                 ->setClass(ConnectionInterface::class)
                 ->setFactory([new Reference($factoryId), 'createConnection'])
