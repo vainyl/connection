@@ -1,4 +1,6 @@
 services:
+  config.database:
+    synthetic: true
   logger.connection:
     synthetic: true
     tags:

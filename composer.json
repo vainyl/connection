@@ -13,7 +13,8 @@
         }
     },
     "require": {
-        "vainyl/core": "0.1.x-dev"
+        "vainyl/core": "0.1.x-dev",
+        "vainyl/config": "0.1.x-dev"
     },
     "repositories": [
         {
