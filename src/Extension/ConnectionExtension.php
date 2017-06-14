@@ -15,7 +15,6 @@ namespace Vainyl\Connection\Extension;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
 use Vainyl\Core\Application\EnvironmentInterface;
-use Vainyl\Core\Exception\MissingRequiredFieldException;
 use Vainyl\Core\Extension\AbstractExtension;
 
 /**
@@ -33,25 +32,15 @@ class ConnectionExtension extends AbstractExtension
         ContainerBuilder $container,
         EnvironmentInterface $environment = null
     ): AbstractExtension {
-        $container
-            ->addCompilerPass(new ConnectionCompilerPass());
+        $configuration = new ConnectionConfiguration();
+        $connections = $this->processConfiguration($configuration, $configs);
 
-        foreach ($configs as $config) {
-            if (false === array_key_exists('connections', $config)) {
-                continue;
-            }
-
-            foreach ($config['connections'] as $name => $configData) {
-                if (false === array_key_exists('driver', $configData)) {
-                    throw new MissingRequiredFieldException($container, $name, $configData, 'driver');
-                }
-                $definition = (new Definition())
-                    ->setFactory(['connection.factory.' . $configData['driver'], 'createConnection'])
-                    ->setArguments([$name, $configData])
-                    ->addTag('connection');
-
-                $container->setDefinition('connection.' . $name, $definition);
-            }
+        foreach ($connections as $connection) {
+            $definition = (new Definition())
+                ->setFactory(['connection.factory.' . $connection['driver'], 'createConnection'])
+                ->setArguments([$connection['name'], $connection])
+                ->addTag('connection');
+            $container->setDefinition('connection.' . $connection['name'], $definition);
         }
         $container->addCompilerPass(new ConnectionCompilerPass());
 
