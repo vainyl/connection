@@ -13,4 +13,4 @@ services:
     arguments: ['@connection.decorator.logger.inner', '@logger.connection']
   connection.storage:
     class: Vainyl\Connection\Storage\ConnectionStorage
-    arguments: ['@storage.prototype', '@connection.factory']
+    arguments: ['@storage.prototype', '@connection.decorator']

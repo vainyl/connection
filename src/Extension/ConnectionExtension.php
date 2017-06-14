@@ -14,6 +14,7 @@ namespace Vainyl\Connection\Extension;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
+use Vainyl\Connection\ConnectionInterface;
 use Vainyl\Core\Application\EnvironmentInterface;
 use Vainyl\Core\Extension\AbstractExtension;
 
@@ -37,6 +38,7 @@ class ConnectionExtension extends AbstractExtension
 
         foreach ($connections as $name => $config) {
             $definition = (new Definition())
+                ->setClass(ConnectionInterface::class)
                 ->setFactory(['connection.factory.' . $config['driver'], 'createConnection'])
                 ->setArguments([$name, $config])
                 ->addTag('connection', ['name' => $name]);
