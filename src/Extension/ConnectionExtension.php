@@ -17,6 +17,7 @@ use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\Reference;
 use Vainyl\Connection\ConnectionInterface;
 use Vainyl\Core\Extension\AbstractFrameworkExtension;
+use Vainyl\Core\Extension\AbstractExtension;
 
 /**
  * Class ConnectionExtension
