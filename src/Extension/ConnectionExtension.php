@@ -50,8 +50,8 @@ class ConnectionExtension extends AbstractFrameworkExtension
                 ->setArguments(
                     [
                         $name,
-                        $config['host'],
                         $config['engine'],
+                        $config['host'],
                         $config['port'],
                         $config['username'],
                         $config['password'],
