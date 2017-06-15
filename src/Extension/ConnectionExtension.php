@@ -53,6 +53,7 @@ class ConnectionExtension extends AbstractFrameworkExtension
                         $config['engine'],
                         $config['host'],
                         $config['port'],
+                        $config['database'],
                         $config['username'],
                         $config['password'],
                         $config['options'],
