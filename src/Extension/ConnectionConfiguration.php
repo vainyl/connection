@@ -37,6 +37,7 @@ class ConnectionConfiguration implements ConfigurationInterface
                     ->scalarNode('driver')->end()
                     ->scalarNode('host')->end()
                     ->scalarNode('port')->end()
+                    ->scalarNode('database')->end()
                     ->scalarNode('username')->end()
                     ->scalarNode('password')->end()
                     ->arrayNode('options')->end()
