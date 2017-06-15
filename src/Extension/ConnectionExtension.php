@@ -16,14 +16,14 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\Reference;
 use Vainyl\Connection\ConnectionInterface;
-use Vainyl\Core\Extension\AbstractExtension;
+use Vainyl\Core\Extension\AbstractFrameworkExtension;
 
 /**
  * Class ConnectionExtension
  *
  * @author Taras P. Girnyk <taras.p.gyrnik@gmail.com>
  */
-class ConnectionExtension extends AbstractExtension
+class ConnectionExtension extends AbstractFrameworkExtension
 {
     /**
      * @inheritDoc
