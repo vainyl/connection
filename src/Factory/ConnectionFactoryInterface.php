@@ -24,6 +24,7 @@ interface ConnectionFactoryInterface extends IdentifiableInterface
 {
     /**
      * @param string $name
+     * @param string $engine
      * @param string $host
      * @param int    $port
      * @param string $databaseName
@@ -35,9 +36,10 @@ interface ConnectionFactoryInterface extends IdentifiableInterface
      */
     public function createConnection(
         string $name,
+        string $engine,
         string $host,
-        string $databaseName,
         int $port,
+        string $databaseName,
         string $userName,
         string $password,
         array $options
