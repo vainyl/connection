@@ -21,35 +21,22 @@ use Vainyl\Core\AbstractIdentifiable;
  */
 abstract class AbstractConnection extends AbstractIdentifiable implements ConnectionInterface
 {
-    private $connectionName;
-
-    private $configData;
+    private $instance;
 
     /**
-     * AbstractConnection constructor.
-     *
-     * @param string $connectionName
-     * @param array  $configData
+     * @return mixed
      */
-    public function __construct(string $connectionName, array $configData)
-    {
-        $this->connectionName = $connectionName;
-        $this->configData = $configData;
-    }
+    abstract public function doEstablish();
 
     /**
      * @inheritDoc
      */
-    public function getName(): string
+    public function establish()
     {
-        return $this->connectionName;
-    }
+        if (null === $this->instance) {
+            $this->instance = $this->doEstablish();
+        }
 
-    /**
-     * @return array
-     */
-    public function getConfigData(): array
-    {
-        return $this->configData;
+        return $this->instance;
     }
 }
