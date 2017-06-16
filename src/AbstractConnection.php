@@ -21,7 +21,27 @@ use Vainyl\Core\AbstractIdentifiable;
  */
 abstract class AbstractConnection extends AbstractIdentifiable implements ConnectionInterface
 {
+    private $name;
+
     private $instance;
+
+    /**
+     * AbstractConnection constructor.
+     *
+     * @param string $name
+     */
+    public function __construct(string $name)
+    {
+        $this->name = $name;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getName(): string
+    {
+        return $this->name;
+    }
 
     /**
      * @return mixed
