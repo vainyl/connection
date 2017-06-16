@@ -13,7 +13,6 @@ declare(strict_types=1);
 namespace Vainyl\Connection\Storage;
 
 use Vainyl\Connection\ConnectionInterface;
-use Vainyl\Connection\Factory\ConnectionDecoratorInterface;
 use Vainyl\Core\Storage\Decorator\AbstractStorageDecorator;
 use Vainyl\Core\Storage\StorageInterface;
 
@@ -24,17 +23,13 @@ use Vainyl\Core\Storage\StorageInterface;
  */
 class ConnectionStorage extends AbstractStorageDecorator
 {
-    private $connectionDecorator;
-
     /**
      * ConnectionStorage constructor.
      *
-     * @param StorageInterface             $storage
-     * @param ConnectionDecoratorInterface $connectionDecorator
+     * @param StorageInterface $storage
      */
-    public function __construct(StorageInterface $storage, ConnectionDecoratorInterface $connectionDecorator)
+    public function __construct(StorageInterface $storage)
     {
-        $this->connectionDecorator = $connectionDecorator;
         parent::__construct($storage);
     }
 
@@ -46,7 +41,7 @@ class ConnectionStorage extends AbstractStorageDecorator
      */
     public function addConnection(string $alias, ConnectionInterface $connection)
     {
-        $this->offsetSet($alias, $this->connectionDecorator->decorate($connection));
+        $this->offsetSet($alias, $connection);
 
         return $this;
     }

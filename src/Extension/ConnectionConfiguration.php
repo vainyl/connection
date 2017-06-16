@@ -41,6 +41,7 @@ class ConnectionConfiguration implements ConfigurationInterface
                     ->scalarNode('database')->end()
                     ->scalarNode('username')->end()
                     ->scalarNode('password')->end()
+                    ->scalarNode('decorate')->end()
                     ->arrayNode('options')->end()
                 ->end()
             ->end()

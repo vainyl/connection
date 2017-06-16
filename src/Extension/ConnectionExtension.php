@@ -59,7 +59,7 @@ class ConnectionExtension extends AbstractFrameworkExtension
                         $config['options'],
                     ]
                 )
-                ->addTag('connection', ['name' => $name]);
+                ->addTag('connection', ['name' => $name, 'decorate' => $config['decorate']]);
             $container->setDefinition('connection.' . $name, $definition);
         }
 

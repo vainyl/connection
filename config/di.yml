@@ -7,10 +7,10 @@ services:
       - {name: 'logger', channel: 'connection'}
   connection.decorator:
     class: Vainyl\Connection\Factory\ConnectionDecorator
-#  connection.decorator.logger:
-#    decorates: connection.decorator
-#    class: Vainyl\Connection\Factory\Decorator\LoggerConnectionDecoratorDecorator
-#    arguments: ['@connection.decorator.logger.inner', '@logger.connection']
+  connection.decorator.logger:
+    decorates: connection.decorator
+    class: Vainyl\Connection\Factory\Decorator\LoggerConnectionDecoratorDecorator
+    arguments: ['@connection.decorator.logger.inner', '@logger.connection']
   connection.storage:
     class: Vainyl\Connection\Storage\ConnectionStorage
-    arguments: ['@storage.prototype', '@connection.decorator']
+    arguments: ['@storage.prototype']
