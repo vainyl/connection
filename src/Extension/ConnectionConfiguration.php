@@ -35,15 +35,8 @@ class ConnectionConfiguration implements ConfigurationInterface
             ->prototype('array')
                 ->children()
                     ->scalarNode('driver')->end()
-                    ->scalarNode('engine')->end()
-                    ->scalarNode('host')->end()
-                    ->scalarNode('port')->end()
-                    ->scalarNode('database')->end()
-                    ->scalarNode('username')->end()
-                    ->scalarNode('password')->end()
-                    ->scalarNode('decorate')->end()
-                    ->arrayNode('options')->end()
                 ->end()
+                ->prototype('scalar')->end()
             ->end()
         ;
 
