@@ -50,16 +50,10 @@ class ConnectionExtension extends AbstractFrameworkExtension
                 ->setArguments(
                     [
                         $name,
-                        $config['engine'],
-                        $config['host'],
-                        $config['port'],
-                        $config['database'],
-                        $config['username'],
-                        $config['password'],
-                        $config['options'],
+                        $config
                     ]
                 )
-                ->addTag('connection', ['name' => $name, 'decorate' => $config['decorate']]);
+                ->addTag('connection', ['name' => $name]);
             $container->setDefinition('connection.' . $name, $definition);
         }
 

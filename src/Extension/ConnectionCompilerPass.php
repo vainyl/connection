@@ -36,10 +36,6 @@ class ConnectionCompilerPass extends AbstractCompilerPass
             throw new MissingRequiredServiceException($container, 'connection.storage');
         }
 
-        if (false === ($container->hasDefinition('connection.decorator'))) {
-            throw new MissingRequiredServiceException($container, 'connection.decorator');
-        }
-
         $services = $container->findTaggedServiceIds('connection');
         foreach ($services as $id => $tags) {
             foreach ($tags as $attributes) {
@@ -47,22 +43,10 @@ class ConnectionCompilerPass extends AbstractCompilerPass
                     throw new MissingRequiredFieldException($container, $id, $attributes, 'name');
                 }
 
-                if (false === array_key_exists('decorate', $attributes)) {
-                    throw new MissingRequiredFieldException($container, $id, $attributes, 'decorate');
-                }
                 $name = $attributes['name'];
                 $definition = $container->getDefinition($id);
                 $inner = $id . '.inner';
                 $container->setDefinition($inner, $definition);
-
-                if ($attributes['decorate']) {
-                    $decoratedDefinition = (new Definition())
-                        ->setClass(ConnectionInterface::class)
-                        ->setFactory([new Reference('connection.decorator'), 'decorate'])
-                        ->setArguments([new Reference($inner)]);
-                    $inner .= '.decorated';
-                    $container->setDefinition($inner, $decoratedDefinition);
-                }
 
                 $containerDefinition = $container->getDefinition('connection.storage');
                 $containerDefinition
