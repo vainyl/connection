@@ -39,6 +39,8 @@ class ConnectionExtension extends AbstractFrameworkExtension
      */
     public function load(array $configs, ContainerBuilder $container): AbstractExtension
     {
+        parent::load($configs, $container);
+
         $configuration = new ConnectionConfiguration();
         $connections = $this->processConfiguration($configuration, $configs);
 
@@ -57,6 +59,6 @@ class ConnectionExtension extends AbstractFrameworkExtension
             $container->setDefinition('connection.' . $name, $definition);
         }
 
-        return parent::load($configs, $container);
+        return $this;
     }
 }
