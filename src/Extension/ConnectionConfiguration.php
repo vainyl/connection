@@ -28,7 +28,7 @@ class ConnectionConfiguration implements ConfigurationInterface
     public function getConfigTreeBuilder()
     {
         $treeBuilder = new TreeBuilder();
-        $rootNode = $treeBuilder->root('connections');
+        $rootNode = $treeBuilder->root('connection');
 
         $rootNode
             ->useAttributeAsKey('name')
