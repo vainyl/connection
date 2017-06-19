@@ -36,7 +36,7 @@ class ConnectionConfiguration implements ConfigurationInterface
                 ->children()
                     ->scalarNode('driver')->end()
                 ->end()
-                ->prototype('scalar')->end()
+                ->prototype('variable')->end()
             ->end()
         ;
 
