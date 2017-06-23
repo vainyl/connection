@@ -16,11 +16,11 @@ use Vainyl\Connection\ConnectionInterface;
 use Vainyl\Core\AbstractIdentifiable;
 
 /**
- * Class ConnectionFactory
+ * Class ConnectionDecorator
  *
  * @author Taras P. Girnyk <taras.p.gyrnik@gmail.com>
  */
-class ConnectionFactory extends AbstractIdentifiable implements ConnectionFactoryInterface
+class ConnectionDecorator extends AbstractIdentifiable implements ConnectionDecoratorInterface
 {
     /**
      * @inheritDoc

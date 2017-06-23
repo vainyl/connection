@@ -1,11 +1,16 @@
 services:
-  connection.factory:
-    class: Vainyl\Connection\Factory\ConnectionFactory
-  connection.factory.logger:
-    decorates: connection.factory
-    class: Vainyl\Connection\Decorator\LoggerConnectionDecorator
-    arguments: ['@connection.factory.inner', '@logger']
+  config.connection:
+    synthetic: true
+  logger.connection:
+    synthetic: true
+    tags:
+      - {name: 'logger', channel: 'connection'}
+  connection.decorator:
+    class: Vainyl\Connection\Factory\ConnectionDecorator
+  connection.decorator.logger:
+    decorates: connection.decorator
+    class: Vainyl\Connection\Factory\Decorator\LoggerConnectionDecoratorDecorator
+    arguments: ['@connection.decorator.logger.inner', '@logger.connection']
   connection.storage:
-    parent: storage.proxy
     class: Vainyl\Connection\Storage\ConnectionStorage
-    arguments: ['@connection.factory']
+    arguments: ['@storage.prototype']

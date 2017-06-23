@@ -14,43 +14,53 @@ namespace Vainyl\Connection\Extension;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
+use Symfony\Component\DependencyInjection\Reference;
+use Vainyl\Connection\ConnectionInterface;
 use Vainyl\Core\Extension\AbstractExtension;
-use Vainyl\Core\Exception\MissingRequiredFieldException;
+use Vainyl\Core\Extension\AbstractFrameworkExtension;
 
 /**
  * Class ConnectionExtension
  *
  * @author Taras P. Girnyk <taras.p.gyrnik@gmail.com>
  */
-class ConnectionExtension extends AbstractExtension
+class ConnectionExtension extends AbstractFrameworkExtension
 {
+    /**
+     * @inheritDoc
+     */
+    public function getCompilerPasses(): array
+    {
+        return [new ConnectionCompilerPass()];
+    }
+
     /**
      * @inheritDoc
      */
     public function load(array $configs, ContainerBuilder $container): AbstractExtension
     {
-        $container
-            ->addCompilerPass(new ConnectionCompilerPass());
+        parent::load($configs, $container);
 
-        foreach ($configs as $config) {
-            if (false === array_key_exists('connections', $config)) {
-                continue;
-            }
+        $configuration = new ConnectionConfiguration();
+        $connections = $this->processConfiguration($configuration, $configs);
 
-            foreach ($config['connections'] as $name => $configData) {
-                if (false === array_key_exists('driver', $configData)) {
-                    throw new MissingRequiredFieldException($container, $name, $configData, 'driver');
-                }
-                $definition = (new Definition())
-                    ->setFactory(['connection.factory.' . $configData['driver'], 'createConnection'])
-                    ->setArguments([$name, $configData])
-                    ->addTag('connection');
+        foreach ($connections as $name => $config) {
+            $factoryId = 'connection.factory.' . $config['driver'];
+            $definition = (new Definition())
+                ->setClass(ConnectionInterface::class)
+                ->setFactory([new Reference($factoryId), 'createConnection'])
+                ->setArguments(
+                    [
+                        $name,
+                        $config,
+                    ]
+                )
+                ->addTag('connection', ['alias' => $name])
+                ->addTag('connection.' . $config['driver'], ['alias' => $name]);
 
-                $container->setDefinition('connection.' . $name, $definition);
-            }
+            $container->setDefinition('connection.' . $name, $definition);
         }
-        $container->addCompilerPass(new ConnectionCompilerPass());
 
-        return parent::load($configs, $container);
+        return $this;
     }
 }

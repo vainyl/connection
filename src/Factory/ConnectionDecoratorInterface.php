@@ -16,17 +16,16 @@ use Vainyl\Connection\ConnectionInterface;
 use Vainyl\Core\IdentifiableInterface;
 
 /**
- * Interface ConnectionFactoryInterface
+ * Interface ConnectionDecoratorInterface
  *
  * @author Taras P. Girnyk <taras.p.gyrnik@gmail.com>
  */
-interface ConnectionFactoryInterface extends IdentifiableInterface
+interface ConnectionDecoratorInterface extends IdentifiableInterface
 {
     /**
-     * @param string $name
-     * @param array  $configData
+     * @param ConnectionInterface $connection
      *
      * @return ConnectionInterface
      */
-    public function createConnection(string $name, array $configData): ConnectionInterface;
+    public function decorate(ConnectionInterface $connection): ConnectionInterface;
 }

@@ -12,38 +12,25 @@ declare(strict_types=1);
 
 namespace Vainyl\Connection\Storage;
 
-use Ds\Map;
 use Vainyl\Connection\ConnectionInterface;
-use Vainyl\Connection\Factory\ConnectionFactoryInterface;
-use Vainyl\Core\Storage\Proxy\AbstractStorageProxy;
+use Vainyl\Core\Storage\Decorator\AbstractStorageDecorator;
+use Vainyl\Core\Storage\StorageInterface;
 
 /**
  * Class ConnectionStorage
  *
  * @author Taras P. Girnyk <taras.p.gyrnik@gmail.com>
  */
-class ConnectionStorage extends AbstractStorageProxy
+class ConnectionStorage extends AbstractStorageDecorator
 {
-    private $connectionFactory;
-
     /**
      * ConnectionStorage constructor.
      *
-     * @param Map                        $storage
-     * @param ConnectionFactoryInterface $connectionFactory
+     * @param StorageInterface $storage
      */
-    public function __construct(Map $storage, ConnectionFactoryInterface $connectionFactory)
+    public function __construct(StorageInterface $storage)
     {
-        $this->connectionFactory = $connectionFactory;
         parent::__construct($storage);
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function offsetGet($offset)
-    {
-        return $this->connectionFactory->decorate(parent::offsetGet($offset));
     }
 
     /**
