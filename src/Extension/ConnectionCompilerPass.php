@@ -39,11 +39,11 @@ class ConnectionCompilerPass extends AbstractCompilerPass
         $services = $container->findTaggedServiceIds('connection');
         foreach ($services as $id => $tags) {
             foreach ($tags as $attributes) {
-                if (false === array_key_exists('name', $attributes)) {
-                    throw new MissingRequiredFieldException($container, $id, $attributes, 'name');
+                if (false === array_key_exists('alias', $attributes)) {
+                    throw new MissingRequiredFieldException($container, $id, $attributes, 'alias');
                 }
 
-                $name = $attributes['name'];
+                $name = $attributes['alias'];
                 $definition = $container->getDefinition($id);
                 $inner = $id . '.inner';
                 $container->setDefinition($inner, $definition);
@@ -55,7 +55,8 @@ class ConnectionCompilerPass extends AbstractCompilerPass
                 $storageDefinition = (new Definition())
                     ->setClass(ConnectionInterface::class)
                     ->setFactory([new Reference('connection.storage'), 'getConnection'])
-                    ->setArguments([$name]);
+                    ->setArguments([$name])
+                    ->setTags($definition->getTags());
 
                 $container->setDefinition($id, $storageDefinition);
             }

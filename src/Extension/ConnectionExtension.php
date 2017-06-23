@@ -16,8 +16,8 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\Reference;
 use Vainyl\Connection\ConnectionInterface;
-use Vainyl\Core\Extension\AbstractFrameworkExtension;
 use Vainyl\Core\Extension\AbstractExtension;
+use Vainyl\Core\Extension\AbstractFrameworkExtension;
 
 /**
  * Class ConnectionExtension
@@ -52,10 +52,12 @@ class ConnectionExtension extends AbstractFrameworkExtension
                 ->setArguments(
                     [
                         $name,
-                        $config
+                        $config,
                     ]
                 )
-                ->addTag('connection', ['name' => $name]);
+                ->addTag('connection', ['alias' => $name])
+                ->addTag('connection.' . $config['driver'], ['alias' => $name]);
+
             $container->setDefinition('connection.' . $name, $definition);
         }
 
