@@ -33,12 +33,11 @@ class ConnectionConfiguration implements ConfigurationInterface
         $rootNode
             ->useAttributeAsKey('name')
             ->prototype('array')
-                ->children()
-                    ->scalarNode('driver')->end()
-                ->end()
-                ->prototype('variable')->end()
+            ->children()
+            ->scalarNode('driver')->end()
             ->end()
-        ;
+            ->prototype('variable')->end()
+            ->end();
 
         return $treeBuilder;
     }
