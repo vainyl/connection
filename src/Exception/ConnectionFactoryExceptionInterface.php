@@ -25,5 +25,5 @@ interface ConnectionFactoryExceptionInterface extends ArrayInterface, \Throwable
     /**
      * @return ConnectionFactoryInterface
      */
-    public function getConnectionFactory() : ConnectionFactoryInterface;
+    public function getConnectionFactory(): ConnectionFactoryInterface;
 }
