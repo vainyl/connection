@@ -31,7 +31,7 @@ class ConnectionExtension extends AbstractFrameworkExtension
      */
     public function getCompilerPasses(): array
     {
-        return [new ConnectionCompilerPass()];
+        return [[new ConnectionCompilerPass()]];
     }
 
     /**
