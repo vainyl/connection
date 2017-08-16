@@ -30,13 +30,13 @@ abstract class AbstractConnectionException extends AbstractCoreException impleme
      * @param ConnectionInterface $connection
      * @param string              $message
      * @param int                 $code
-     * @param \Exception|null     $previous
+     * @param \Throwable|null     $previous
      */
     public function __construct(
         ConnectionInterface $connection,
         string $message,
         int $code = 500,
-        \Exception $previous = null
+        \Throwable $previous = null
     ) {
         $this->connection = $connection;
         parent::__construct($message, $code, $previous);

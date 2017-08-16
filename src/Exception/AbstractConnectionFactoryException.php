@@ -30,13 +30,13 @@ class AbstractConnectionFactoryException extends AbstractCoreException implement
      * @param ConnectionFactoryInterface $connectionFactory
      * @param string                     $message
      * @param int                        $code
-     * @param \Exception|null            $previous
+     * @param \Throwable|null            $previous
      */
     public function __construct(
         ConnectionFactoryInterface $connectionFactory,
         string $message,
         int $code = 500,
-        \Exception $previous = null
+        \Throwable $previous = null
     ) {
         $this->connectionFactory = $connectionFactory;
         parent::__construct($message, $code, $previous);
